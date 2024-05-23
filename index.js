@@ -47,9 +47,19 @@
 
 const { log } = require("console");
 const http = require("http");
+const url = require("url");
 
 const server = http.createServer((req, res) => {
-  res.end("Hello from the server!");
+  const pathname = req.url;
+  // log(pathname);
+  // res.end(pathname);
+  if (pathname === "/" || pathname === "/overview") {
+    res.end("This is overview page.");
+  } else if (pathname === "/product") {
+    res.end("This is product page.");
+  } else {
+    res.end("page not found");
+  }
 });
 
 server.listen(8000, "127.0.0.1", () => {
