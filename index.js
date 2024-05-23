@@ -47,6 +47,7 @@
 
 const { log } = require("console");
 const http = require("http");
+const fs = require("fs");
 const url = require("url");
 
 const server = http.createServer((req, res) => {
@@ -57,6 +58,14 @@ const server = http.createServer((req, res) => {
     res.end("This is overview page.");
   } else if (pathname === "/product") {
     res.end("This is product page.");
+  } else if (pathname === "/api") {
+    fs.readFile("./dev-data/data.json", (err, data) => {
+      if (err) {
+        return log(`Error reading file: ${err}`);
+      }
+      res.writeHead(200, { "content-type": "application/json" });
+      res.end(data);
+    });
   } else {
     res.writeHead(404, {
       "content-type": "text/html",
