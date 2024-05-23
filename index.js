@@ -50,6 +50,9 @@ const http = require("http");
 const fs = require("fs");
 const url = require("url");
 
+const data = fs.readFileSync("./dev-data/data.json", "utf-8");
+const dataObj = JSON.parse(data);
+
 const server = http.createServer((req, res) => {
   const pathname = req.url;
   // log(pathname);
@@ -65,6 +68,8 @@ const server = http.createServer((req, res) => {
       }
       res.writeHead(200, { "content-type": "application/json" });
       res.end(data);
+      // log(data);
+      // log(dataObj);
     });
   } else {
     res.writeHead(404, {
